@@ -1,26 +1,23 @@
-package com.katruk.domain;
+package com.katruk.domain.enumeration;
 
-import java.util.Collections;
-import java.util.LinkedList;
+import com.katruk.domain.Week;
+
 import java.util.List;
 
-public class WeekConverter implements Week {
+public final class WeekConverter implements Week {
 
     @Override
     public String convert(final Integer number) {
-        final List<Integer> numberList = toNumberList(number);
-        Collections.reverse(numberList);
+        final List<Integer> numberList = new NumberList(number).toList();
         StringBuilder builder = new StringBuilder();
         numberList.forEach(e ->
-            convertToNumber(builder, e));
+                convertToNumber(builder, e));
         return builder.toString();
     }
 
     private void convertToNumber(final StringBuilder builder, final Integer e) {
         DayOfWeak dayOfWeak = DayOfWeak.valueOf(e);
-        if (builder.length() == 0) {
-            builder.append(dayOfWeak.asNumber());
-        } else {
+        if (builder.length() != 0) {
             if (comparePrevious(builder, dayOfWeak)) {
                 if (builder.length() > 2 && containsHyphen(builder)) {
                     builder.deleteCharAt(builder.length() - 1);
@@ -30,8 +27,8 @@ public class WeekConverter implements Week {
             } else {
                 builder.append(",");
             }
-            builder.append(dayOfWeak.asNumber());
         }
+        builder.append(dayOfWeak.asNumber());
     }
 
     private boolean containsHyphen(final StringBuilder builder) {
@@ -46,18 +43,6 @@ public class WeekConverter implements Week {
                                 builder.substring(builder.length() - 1)
                         )
                 );
-    }
-
-    private List<Integer> toNumberList(final Integer number) {
-        final List<Integer> numberList = new LinkedList<>();
-        int temp = number;
-        do {
-            int digit = temp % 10;
-            temp /= 10;
-            numberList.add(digit);
-        }
-        while (temp > 0);
-        return numberList;
     }
 
 }

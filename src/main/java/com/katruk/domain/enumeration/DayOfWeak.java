@@ -1,4 +1,4 @@
-package com.katruk.domain;
+package com.katruk.domain.enumeration;
 
 import java.util.Arrays;
 

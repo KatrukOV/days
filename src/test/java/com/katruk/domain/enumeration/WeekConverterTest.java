@@ -1,4 +1,4 @@
-package com.katruk.domain;
+package com.katruk.domain.enumeration;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -12,6 +12,19 @@ public class WeekConverterTest {
     @Before
     public void setUp() {
         this.weekConverter = new WeekConverter();
+    }
+
+    @Test
+    public void testNumberSet0() {
+        //given
+        Integer days = 12;
+
+        //when
+        String result = this.weekConverter.convert(days);
+
+        //then
+        System.out.println(result);
+        assertEquals("1-2", result);
     }
 
     @Test
